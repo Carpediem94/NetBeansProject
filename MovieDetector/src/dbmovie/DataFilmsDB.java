@@ -22,10 +22,10 @@ public class DataFilmsDB implements DAOFilms {
     
     @Override
     public void open() {
-        String driverClassName = "com.mysql.jdbc.Driver";
-        String dbURL = "jdbc:mysql://localhost/Film";
-        String user = "root";
-        String password = "mekemeke";
+        String driverClassName = "";
+        String dbURL = "";
+        String user = "";
+        String password = "";
         try {
             Class.forName(driverClassName);
             con = DriverManager.getConnection(dbURL, user, password);

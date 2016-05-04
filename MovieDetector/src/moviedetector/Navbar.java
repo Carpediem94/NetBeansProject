@@ -24,14 +24,14 @@ import javafx.scene.layout.TilePane;
  * @author carpediem
  */
 public class Navbar extends HBox {
-    public Navbar(BorderPane layout, TilePane column, GridPane s, Label title, TextField searchDb) {
+    public Navbar(BorderPane layout, TilePane column, GridPane s, Label title, TextField searchDb, TextField searchImdb) {
         TextField search = new TextField();
         Button go = new ButtoM("GO!");
         Image image = new Image(getClass().getResourceAsStream("style/home.png"));
         ImageView iw = new ImageView(image);
         Button home = new ButtoM("");
         
-        DbListener dl = new DbListener(layout, s, search, title, column);
+        DbListener dl = new DbListener(layout, s, search, null, title, column, 'd');
         go.addEventHandler(ActionEvent.ACTION, dl);
         
         iw.setFitWidth(20);
@@ -41,7 +41,8 @@ public class Navbar extends HBox {
         home.setOnAction((ActionEvent e) -> {
             layout.getChildren().remove(column);
             layout.setCenter(s);
-            searchDb.setPromptText("Search movie in database");
+            searchDb.setText("");
+            searchImdb.setText("");
         });
         
         search.setPromptText("Search Film");

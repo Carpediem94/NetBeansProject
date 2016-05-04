@@ -5,10 +5,8 @@
  */
 package moviedetector;
 
-import dbmovie.DataFilmsDB;
 import dbmovie.Film;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -29,7 +27,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import org.json.JSONObject;
 
 /**
  *
@@ -52,11 +49,16 @@ public final class Movie extends TilePane {
     Film film;
     
     public Movie(Label title, char c) throws Exception {
+        //d = movie in db
         if(c=='d') {
+            //d = return db movie
             film = new Film(title.getText(), 'd');
+        //t = search for title
         } else if (c=='t') {
+            //j = return jason
             film = new Film(title.getText(), 'j');
         }
+        
         r = new Text(film.rating);
         p = new Text(film.plot);
         y = new Text(film.year);            

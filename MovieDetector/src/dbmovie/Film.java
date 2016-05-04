@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import moviedetector.MovieList;
+import org.json.JSONArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,11 +40,15 @@ public final class Film {
     String[] genre;
     
     public Film(String title, char c) throws SQLException, ClassNotFoundException {
+        //d = search in db
         if(c=='d') {
             DbFilm(title);
+        //j = return jason
         } else if (c=='j') {
             JsonFilm(title, 't');
-        }  
+        } else if (c=='s') {
+            JsonFilm(title, 's');
+        } 
     }
     
     public void DbFilm(String title) throws SQLException {
@@ -68,10 +74,12 @@ public final class Film {
     public void JsonFilm(String title, char c) throws ClassNotFoundException, SQLException {
         String t = title.replace(" ", "+");
         try {
+            //t = search for title
             if (c == 't') {
-                readJsonFromUrl("http://www.omdbapi.com/?t=" + t);
+                readJsonFromUrl("http://www.omdbapi.com/?t=" + t, c);
+            //s = search more result    
             } else if (c == 's') {
-                readJsonFromUrl("http://www.omdbapi.com/?s=" + t);
+                readJsonFromUrl("http://www.omdbapi.com/?s=" + t, c);
             } else {
                 //errore
             }
@@ -89,23 +97,35 @@ public final class Film {
         return sb.toString();
     }
 
-    private void readJsonFromUrl(String url) throws IOException, JSONException, ClassNotFoundException, SQLException {
+    private void readJsonFromUrl(String url, char c) throws IOException, JSONException, ClassNotFoundException, SQLException {
         try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
             JSONObject film = new JSONObject(jsonText);
             
-            title = film.get("Title").toString();
-            poster = film.get("Poster").toString();
-            year = film.get("Year").toString();
-            id = film.get("imdbID").toString();
-            plot = film.get("Plot").toString();
-            director = film.get("Director").toString();
-            actors = film.get("Actors").toString();
-            rating = film.get("imdbRating").toString();
-            time = film.get("Runtime").toString();
-            genres = film.get("Genre").toString();
-            genre = film.get("Genre").toString().split(", ");
+            if(c=='t') { 
+                title = film.get("Title").toString();
+                poster = film.get("Poster").toString();
+                year = film.get("Year").toString();
+                id = film.get("imdbID").toString();
+                plot = film.get("Plot").toString();
+                director = film.get("Director").toString();
+                actors = film.get("Actors").toString();
+                rating = film.get("imdbRating").toString();
+                time = film.get("Runtime").toString();
+                genres = film.get("Genre").toString();
+                genre = film.get("Genre").toString().split(", ");
+            } else if(c=='s') {
+                JSONArray array = film.getJSONArray("Search");
+                //System.out.println("ARR: " + array.optString(0));
+                for (int i=0; i<array.length(); i++) {
+                    title = array.getJSONObject(i).get("Title").toString();
+                    year = array.getJSONObject(i).get("Year").toString();
+                    poster = array.getJSONObject(i).get("Poster").toString();
+                    System.out.println("Title: " + title + "\nYear: " + year + "\nPoster: " + poster);
+                    //MovieList ml = new MovieList(title, year, poster);
+                }
+            }
                 /*
                 DataFilmsDB dataFilms = new DataFilmsDB();
                 dataFilms.open();

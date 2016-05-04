@@ -5,6 +5,7 @@
  */
 package moviedetector;
 
+import dbmovie.Film;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.Event;
@@ -23,28 +24,39 @@ public class DbListener implements EventHandler {
     BorderPane bp;
     GridPane gp;
     TextField tf;
+    TextField tf2;
     Label l;
     TilePane tp;
+    char cc;
     
-    DbListener(BorderPane layout, GridPane search, TextField searchDb, Label title, TilePane column) {
+    DbListener(BorderPane layout, GridPane search, TextField searchDb, TextField searchImdb, Label title, TilePane column, char c) {
         bp = layout;
         gp = search;
         tf = searchDb;
+        tf2 = searchImdb;
         l = title;
         tp = column;
+        cc = c;
     }
     
     @Override
     public void handle (Event e) {
-        l = new Label(tf.getText());
             try {
                 //il char deve essere passato poi in base a dove vuoi cercare d = DB, t = imdb
-                tp = new Movie(l, 'd');
+                if (cc=='d') {
+                    l = new Label(tf.getText());
+                    tp = new Movie(l, cc);
+                } else if (cc=='t') {
+                    l = new Label(tf2.getText());
+                    tp = new Movie(l, cc);
+                } else if(cc=='s') {
+                    //tp = new MovieList(l, cc);
+                    Film film = new Film(tf2.getText(), 's');
+                }
             } catch (Exception ex) {
                 Logger.getLogger(MovieDetector.class.getName()).log(Level.SEVERE, null, ex);
             }
             bp.getChildren().remove(gp);
             bp.setCenter(tp);
-            tf.setPromptText("Search Film");
     }
 }

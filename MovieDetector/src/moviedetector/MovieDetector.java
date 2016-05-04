@@ -56,8 +56,13 @@ public class MovieDetector extends Application {
         searchImdb.setAlignment(Pos.CENTER);
         searchImdb.setPrefSize(300, 30);
         
-        DbListener dl = new DbListener(layout, search, searchDb, title, column);
+        //d = search in db
+        DbListener dl = new DbListener(layout, search, searchDb, null, title, column, 'd');
         sd.addEventHandler(ActionEvent.ACTION, dl);
+        
+        //t = search for title
+        DbListener dl2 = new DbListener(layout, search, null, searchImdb, title, column, 's');
+        si.addEventHandler(ActionEvent.ACTION, dl2);
                         
         search.add(searchDb, 0,0);
         search.add(sd, 1,0);
@@ -68,7 +73,7 @@ public class MovieDetector extends Application {
         search.setTranslateY(190);
         search.setTranslateX(190);
                 
-        Pane nav = new Navbar(layout, column, search, title, searchDb);
+        Pane nav = new Navbar(layout, column, search, title, searchDb, searchImdb);
         nav.setPrefWidth(750);
         layout.setTop(nav);
         layout.setCenter(search);

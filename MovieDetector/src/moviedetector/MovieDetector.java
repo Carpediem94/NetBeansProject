@@ -5,13 +5,9 @@
  */
 package moviedetector;
 
-import dbmovie.Film;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,13 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import javafx.stage.Stage;
 
@@ -77,7 +68,7 @@ public class MovieDetector extends Application {
         nav.setPrefWidth(750);
         layout.setTop(nav);
         layout.setCenter(search);
-        
+                
         Group root = new Group(layout);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(this.getClass().getResource("style/style.css").toExternalForm());

@@ -103,6 +103,7 @@ public final class Film {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
             JSONObject film = new JSONObject(jsonText);
+            //System.out.println(film);
             
             if(c=='t') { 
                 title = film.get("Title").toString();

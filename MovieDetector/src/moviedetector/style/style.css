@@ -21,3 +21,8 @@
 #button {
     -fx-cursor: hand;
 }
+
+
+.separator .line {
+    -fx-background-color: #336699;
+}

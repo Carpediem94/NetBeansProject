@@ -52,11 +52,7 @@ public class Navbar extends HBox {
         HBox hb = new HBox(home);
         hb.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(hb, Priority.ALWAYS);
-        /*
-        go.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
-        go.setPrefHeight(30);
-        go.setId("button");
-        */
+        
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10, 20, 10, 20));
         this.setStyle("-fx-background-color: #336699;");

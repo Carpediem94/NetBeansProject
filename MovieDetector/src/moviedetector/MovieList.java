@@ -7,27 +7,48 @@ package moviedetector;
 
 import dbmovie.Film;
 import java.sql.SQLException;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 /**
  *
  * @author carpediem
  */
-public class MovieList extends TilePane {
+public final class MovieList extends TilePane {
     String title;
     String year;
-    String poster;
+    Image poster;
+    Film film;
+    
     public MovieList(String titleSearch, char c) throws SQLException, ClassNotFoundException {
-        Film film = new Film(titleSearch, c);
-        
+        film = new Film(titleSearch, c);
+        setPrefColumns(1);
         for (int i=0; i<film.filmList.length(); i++) {
             title = film.filmList.getJSONObject(i).get("Title").toString();
             year = film.filmList.getJSONObject(i).get("Year").toString();
-            poster = film.filmList.getJSONObject(i).get("Poster").toString();
-            //System.out.println("Title: " + title + "\nYear: " + year + "\nPoster: " + poster);
+            poster = new Image(film.filmList.getJSONObject(i).get("Poster").toString(), 83.75, 125, true, true);
+            getChildren().add(SingleMovie(title, year, poster));
         }
         
+    }
+    
+    public HBox SingleMovie(String title, String year, Image poster) {
+        ImageView iw = new ImageView(poster);
+        Label t = new Label(title);
+        Label y = new Label(year);
+        HBox hb = new HBox();
+        VBox vb = new VBox();
+        Button show = new ButtoM("Show");
+        
+        vb.getChildren().addAll(t, y);
+        
+        hb.getChildren().addAll(iw, vb, show);
+        return hb;
     }
     
 }

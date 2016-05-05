@@ -22,7 +22,16 @@
     -fx-cursor: hand;
 }
 
-
 .separator .line {
     -fx-background-color: #336699;
+}
+
+.list-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -10;
+}
+
+.list-cell {
+    -fx-background-color: rgb(228, 222, 255);
+    -fx-cell-hover-color: transparent;
 }

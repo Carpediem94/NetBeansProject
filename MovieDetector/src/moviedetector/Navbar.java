@@ -31,7 +31,7 @@ public class Navbar extends HBox {
         ImageView iw = new ImageView(image);
         Button home = new ButtoM("");
         
-        DbListener dl = new DbListener(layout, s, search, null, title, column, 'd');
+        DbListener dl = new DbListener(layout, s, search, null, column, 'd');
         go.addEventHandler(ActionEvent.ACTION, dl);
         
         iw.setFitWidth(20);

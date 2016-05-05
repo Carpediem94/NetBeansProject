@@ -29,10 +29,9 @@ public class MovieDetector extends Application {
     //private DataFilmsDB dataFilms;
     Label title;
     TilePane column;
-        
+    
     @Override
-    public void start(Stage stage) throws Exception {
-        //JsonFilm film = new JsonFilm("Inception");
+    public void start(Stage stage) throws Exception {    
         BorderPane layout = new BorderPane();
         TextField searchDb = new TextField();
         TextField searchImdb = new TextField();
@@ -48,11 +47,11 @@ public class MovieDetector extends Application {
         searchImdb.setPrefSize(300, 30);
         
         //d = search in db
-        DbListener dl = new DbListener(layout, search, searchDb, null, title, column, 'd');
+        DbListener dl = new DbListener(layout, search, searchDb, null, column, 'd');
         sd.addEventHandler(ActionEvent.ACTION, dl);
         
         //t = search for title
-        DbListener dl2 = new DbListener(layout, search, null, searchImdb, title, column, 's');
+        DbListener dl2 = new DbListener(layout, search, null, searchImdb, column, 's');
         si.addEventHandler(ActionEvent.ACTION, dl2);
                         
         search.add(searchDb, 0,0);
@@ -88,6 +87,5 @@ public class MovieDetector extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    }    
 }

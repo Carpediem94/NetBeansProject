@@ -48,15 +48,16 @@ public final class Movie extends TilePane {
     Text r, p, y, d, a, t, g;
     Film film;
     
-    public Movie(Label title, char c) throws Exception {
+    public Movie(String titleFilm, char c) throws Exception {
+        Label title = new Label(titleFilm);
         //d = movie in db
         if(c=='d') {
             //d = return db movie
-            film = new Film(title.getText(), 'd');
+            film = new Film(titleFilm, 'd');
         //t = search for title
         } else if (c=='t') {
             //j = return jason
-            film = new Film(title.getText(), 'j');
+            film = new Film(titleFilm, 'j');
         }
         
         r = new Text(film.rating);
@@ -113,7 +114,7 @@ public final class Movie extends TilePane {
         });
         
         GridPane row = new GridPane();
-        title.setText(title.getText() + " (" + y.getText() + ")");
+        title.setText(titleFilm + " (" + y.getText() + ")");
         title.setTextFill(Color.web("#336699"));
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         title.setWrapText(true);

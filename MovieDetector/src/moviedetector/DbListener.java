@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -32,12 +33,11 @@ public class DbListener implements EventHandler {
     TilePane tp;
     char cc;
     
-    DbListener(BorderPane layout, GridPane search, TextField searchDb, TextField searchImdb, Label title, TilePane column, char c) {
+    DbListener(BorderPane layout, GridPane search, TextField searchDb, TextField searchImdb, TilePane column, char c) {
         bp = layout;
         gp = search;
         tf = searchDb;
         tf2 = searchImdb;
-        l = title;
         tp = column;
         cc = c;
     }
@@ -45,15 +45,13 @@ public class DbListener implements EventHandler {
     @Override
     public void handle (Event e) {
             try {
-                //il char deve essere passato poi in base a dove vuoi cercare d = DB, t = imdb
+                //il char deve essere passato poi in base a dove vuoi cercare d = DB, t-s = imdb
                 if (cc=='d') {
-                    l = new Label(tf.getText());
-                    tp = new Movie(l, cc);
+                    tp = new Movie(tf.getText(), cc);
                 } else if (cc=='t') {
-                    l = new Label(tf2.getText());
-                    tp = new Movie(l, cc);
+                    tp = new Movie(tf2.getText(), cc);
                 } else if(cc=='s') {
-                    tp = new MovieList(tf2.getText(), cc);
+                    tp = new MovieList(tf2.getText(), cc, bp, tp);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(MovieDetector.class.getName()).log(Level.SEVERE, null, ex);

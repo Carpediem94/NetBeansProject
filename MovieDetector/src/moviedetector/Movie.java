@@ -5,10 +5,8 @@
  */
 package moviedetector;
 
-import dbmovie.DataFilmsDB;
 import dbmovie.Film;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -29,7 +27,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import org.json.JSONObject;
 
 /**
  *
@@ -51,12 +48,18 @@ public final class Movie extends TilePane {
     Text r, p, y, d, a, t, g;
     Film film;
     
-    public Movie(Label title, char c) throws Exception {
+    public Movie(String titleFilm, char c) throws Exception {
+        Label title = new Label(titleFilm);
+        //d = movie in db
         if(c=='d') {
-            film = new Film(title.getText(), 'd');
+            //d = return db movie
+            film = new Film(titleFilm, 'd');
+        //t = search for title
         } else if (c=='t') {
-            film = new Film(title.getText(), 'j');
+            //j = return jason
+            film = new Film(titleFilm, 'j');
         }
+        
         r = new Text(film.rating);
         p = new Text(film.plot);
         y = new Text(film.year);            
@@ -111,7 +114,7 @@ public final class Movie extends TilePane {
         });
         
         GridPane row = new GridPane();
-        title.setText(title.getText() + " (" + y.getText() + ")");
+        title.setText(titleFilm + " (" + y.getText() + ")");
         title.setTextFill(Color.web("#336699"));
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         title.setWrapText(true);

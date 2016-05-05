@@ -24,14 +24,14 @@ import javafx.scene.layout.TilePane;
  * @author carpediem
  */
 public class Navbar extends HBox {
-    public Navbar(BorderPane layout, TilePane column, GridPane s, Label title, TextField searchDb) {
+    public Navbar(BorderPane layout, TilePane column, GridPane s, Label title, TextField searchDb, TextField searchImdb) {
         TextField search = new TextField();
         Button go = new ButtoM("GO!");
         Image image = new Image(getClass().getResourceAsStream("style/home.png"));
         ImageView iw = new ImageView(image);
         Button home = new ButtoM("");
         
-        DbListener dl = new DbListener(layout, s, search, title, column);
+        DbListener dl = new DbListener(layout, s, search, null, column, 'd');
         go.addEventHandler(ActionEvent.ACTION, dl);
         
         iw.setFitWidth(20);
@@ -41,7 +41,8 @@ public class Navbar extends HBox {
         home.setOnAction((ActionEvent e) -> {
             layout.getChildren().remove(column);
             layout.setCenter(s);
-            searchDb.setPromptText("Search movie in database");
+            searchDb.setText("");
+            searchImdb.setText("");
         });
         
         search.setPromptText("Search Film");
@@ -51,11 +52,7 @@ public class Navbar extends HBox {
         HBox hb = new HBox(home);
         hb.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(hb, Priority.ALWAYS);
-        /*
-        go.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
-        go.setPrefHeight(30);
-        go.setId("button");
-        */
+        
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10, 20, 10, 20));
         this.setStyle("-fx-background-color: #336699;");

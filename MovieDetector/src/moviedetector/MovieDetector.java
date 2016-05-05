@@ -5,13 +5,9 @@
  */
 package moviedetector;
 
-import dbmovie.Film;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,13 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import javafx.stage.Stage;
 
@@ -38,10 +29,9 @@ public class MovieDetector extends Application {
     //private DataFilmsDB dataFilms;
     Label title;
     TilePane column;
-        
+    
     @Override
-    public void start(Stage stage) throws Exception {
-        //JsonFilm film = new JsonFilm("Inception");
+    public void start(Stage stage) throws Exception {    
         BorderPane layout = new BorderPane();
         TextField searchDb = new TextField();
         TextField searchImdb = new TextField();
@@ -56,8 +46,13 @@ public class MovieDetector extends Application {
         searchImdb.setAlignment(Pos.CENTER);
         searchImdb.setPrefSize(300, 30);
         
-        DbListener dl = new DbListener(layout, search, searchDb, title, column);
+        //d = search in db
+        DbListener dl = new DbListener(layout, search, searchDb, null, column, 'd');
         sd.addEventHandler(ActionEvent.ACTION, dl);
+        
+        //t = search for title
+        DbListener dl2 = new DbListener(layout, search, null, searchImdb, column, 's');
+        si.addEventHandler(ActionEvent.ACTION, dl2);
                         
         search.add(searchDb, 0,0);
         search.add(sd, 1,0);
@@ -68,11 +63,11 @@ public class MovieDetector extends Application {
         search.setTranslateY(190);
         search.setTranslateX(190);
                 
-        Pane nav = new Navbar(layout, column, search, title, searchDb);
+        Pane nav = new Navbar(layout, column, search, title, searchDb, searchImdb);
         nav.setPrefWidth(750);
         layout.setTop(nav);
         layout.setCenter(search);
-        
+                
         Group root = new Group(layout);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(this.getClass().getResource("style/style.css").toExternalForm());
@@ -92,6 +87,5 @@ public class MovieDetector extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    }    
 }

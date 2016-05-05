@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
+import moviedetector.Movie;
+import moviedetector.MovieDetector;
+import moviedetector.MovieList;
 
 /**
  *
@@ -50,8 +53,9 @@ public class DbListener implements EventHandler {
                     l = new Label(tf2.getText());
                     tp = new Movie(l, cc);
                 } else if(cc=='s') {
-                    //tp = new MovieList(l, cc);
-                    Film film = new Film(tf2.getText(), 's');
+                    //l = new Label(tf2.getText());
+                    tp = new MovieList(tf2.getText(), cc);
+                    //Film film = new Film(tf2.getText(), 's');
                 }
             } catch (Exception ex) {
                 Logger.getLogger(MovieDetector.class.getName()).log(Level.SEVERE, null, ex);

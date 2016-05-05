@@ -38,6 +38,7 @@ public final class Film {
     public String time;
     public String genres;
     String[] genre;
+    public JSONArray filmList;
     
     public Film(String title, char c) throws SQLException, ClassNotFoundException {
         //d = search in db
@@ -116,15 +117,7 @@ public final class Film {
                 genres = film.get("Genre").toString();
                 genre = film.get("Genre").toString().split(", ");
             } else if(c=='s') {
-                JSONArray array = film.getJSONArray("Search");
-                //System.out.println("ARR: " + array.optString(0));
-                for (int i=0; i<array.length(); i++) {
-                    title = array.getJSONObject(i).get("Title").toString();
-                    year = array.getJSONObject(i).get("Year").toString();
-                    poster = array.getJSONObject(i).get("Poster").toString();
-                    System.out.println("Title: " + title + "\nYear: " + year + "\nPoster: " + poster);
-                    //MovieList ml = new MovieList(title, year, poster);
-                }
+                filmList = film.getJSONArray("Search");
             }
                 /*
                 DataFilmsDB dataFilms = new DataFilmsDB();

@@ -7,7 +7,6 @@ package moviedetector;
 
 import dbmovie.Film;
 import java.sql.SQLException;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,20 +15,15 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -56,7 +50,11 @@ public final class MovieList extends TilePane {
         for (int i=0; i<film.filmList.length(); i++) {
             title = film.filmList.getJSONObject(i).get("Title").toString();
             year = film.filmList.getJSONObject(i).get("Year").toString();
-            poster = new Image(film.filmList.getJSONObject(i).get("Poster").toString(), 83.75, 125, true, true);
+            if(film.filmList.getJSONObject(i).get("Poster").toString().equals("N/A")) {
+                poster = new Image(getClass().getResourceAsStream("style/pagenotfound.png"), 83.75, 125, true, true);
+            } else {
+                poster = new Image(film.filmList.getJSONObject(i).get("Poster").toString(), 83.75, 125, true, true);
+            }
             
             hb = SingleMovie(title, year, poster);
             hb.setPadding(new Insets(13, 45, 13, 10));

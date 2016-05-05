@@ -68,7 +68,11 @@ public final class Movie extends TilePane {
         t = new Text(film.time);
         g = new Text(film.genres);
         id = "http://www.imdb.com/title/" + film.id;
-        poster = new Image(film.poster, 335, 500, true, true);
+        if(film.poster.equals("N/A")) {
+            poster = new Image(getClass().getResourceAsStream("style/pagenotfound.png"), 335, 500, true, true);
+        } else {
+            poster = new Image(film.poster, 335, 500, true, true);
+        }
         
         GridPane info = new GridPane();
                 
